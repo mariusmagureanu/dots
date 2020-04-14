@@ -1,5 +1,5 @@
 ## About
-This is just a placeholder for the various config files I've got lying around my box.
+This is just a placeholder for the various config files I've got lying around in my box.
 
 ## Running OS(s):
 1. [Arch](https://www.archlinux.org/)
