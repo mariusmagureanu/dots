@@ -1,2 +1,3 @@
-# dots
-Dot files and misc config
+## About
+This is just placeholder for the various config files I've got lying around my box.
+
