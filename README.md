@@ -10,6 +10,7 @@ This is just a placeholder for the various config files I've got lying around in
 2. [urxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode)
 3. [ranger](https://wiki.archlinux.org/index.php/Ranger)
 3. [surf](https://wiki.archlinux.org/index.php/Surf)
+4. [kitty](https://sw.kovidgoyal.net/kitty/)
 
 ## Preferred vim plugins:
 1. [lightline.vim](https://github.com/itchyny/lightline.vim)
