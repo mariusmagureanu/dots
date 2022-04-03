@@ -6,9 +6,18 @@
 [[ $- != *i* ]] && return
 export VISUAL="vim"
 export EDITOR="vim"
-#alias ls='ls -la --color=auto'
 alias ls='exa -la'
 alias grep='grep --color=auto'
+alias vim="nvim"
+alias icat="kitty +kitten icat"
+alias d="kitty +kitten diff"
+alias gd="git difftool --no-symlinks --dir-diff"
+
+alias kcl="kubectl config get-clusters"
+alias kcu="kubectl config use-context"
+alias kcc="kubectl config current-context"
+
+source <(kitty + complete setup bash)
 
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
@@ -76,10 +85,13 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 # export PS1="\[\e[33m\]\u\[\e[m\]@\[\e[32m\]\h\[\e[m\][\[\e[34m\]\W\[\e[m\]]\[\e[36m\]\`parse_git_branch\`\[\e[m\]\\$ "
 export PS1='\[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(parse_git_branch " (%s)")\[\e[0;39m\] \[\e[1;37m\]$ '
 
-bind 'TAB:menu-complete'
-bind 'set show-all-if-ambiguous on'
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/marius/.sdkman"
-[[ -s "/home/marius/.sdkman/bin/sdkman-init.sh" ]] && source "/home/marius/.sdkman/bin/sdkman-init.sh"
-source /usr/share/nvm/init-nvm.sh
+
+# added by travis gem
+[ ! -s /home/marius/.travis/travis.sh ] || source /home/marius/.travis/travis.sh
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

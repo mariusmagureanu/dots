@@ -25,6 +25,7 @@ Plug 'vim-scripts/splunk.vim'
 Plug 'dense-analysis/ale'
 " code
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+Plug 'fatih/molokai'
 Plug 'pangloss/vim-javascript'
 Plug 'sebdah/vim-delve'
 " helpers
@@ -54,7 +55,9 @@ Plug 'christalib/nvim-splunk-linter'
 
 
 call plug#end()
-let g:python3_host_prog = '/usr/bin/python3'
+let g:rehash256 = 1
+let g:molokai_original = 1
+let g:python3_host_prog = '/usr/bin/python'
 let g:deoplete#enable_at_startup = 1
 set termguicolors     " enable true colors support
 let ayucolor="mirage"
@@ -96,6 +99,8 @@ autocmd BufNewFile,BufRead *.yar,*.yara setlocal filetype=yara
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <Leader>, <ESC>:w<CR>i
@@ -164,6 +169,11 @@ let g:go_highlight_generate_tags = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_addtags_transform = "camelcase"
+
+" Auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
 " nerdCommenter
 let g:ERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
