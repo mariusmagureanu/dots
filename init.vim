@@ -4,6 +4,16 @@ let mapleader=","
 call plug#begin()
 set rtp+=~/.fzf
 
+" kitty
+Plug 'fladson/vim-kitty'
+
+" rust
+Plug 'neovim/nvim-lspconfig'
+Plug 'Shougo/deoplete-lsp'
+Plug 'ervandew/supertab'
+Plug 'Chiel92/vim-autoformat'
+
+
 " terraform
 Plug 'hashivim/vim-terraform'
 Plug 'vim-syntastic/syntastic'
@@ -25,7 +35,6 @@ Plug 'vim-scripts/splunk.vim'
 Plug 'dense-analysis/ale'
 " code
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plug 'fatih/molokai'
 Plug 'pangloss/vim-javascript'
 Plug 'sebdah/vim-delve'
 " helpers
@@ -46,22 +55,29 @@ Plug 'itchyny/lightline.vim'
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'christalib/nvim-splunk-linter'
-
-
 call plug#end()
-let g:rehash256 = 1
-let g:molokai_original = 1
-let g:python3_host_prog = '/usr/bin/python'
+
+" setup rust_analyzer LSP (IDE features)
+lua require'lspconfig'.rust_analyzer.setup{}
+
+" Use LSP omni-completion in Rust files
+autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
+" customise deoplete                                                                                                                                                     " maximum candidate window length
+call deoplete#custom#source('_', 'max_menu_width', 80)
+
+" Press Tab to scroll _down_ a list of auto-completions
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:python3_host_prog = '/usr/bin/python3'
 let g:deoplete#enable_at_startup = 1
 set termguicolors     " enable true colors support
 let ayucolor="mirage"
-colorscheme industry
+colorscheme ayu
 "set laststatus=2
 "set noshowmode
 filetype plugin on
@@ -99,8 +115,7 @@ autocmd BufNewFile,BufRead *.yar,*.yara setlocal filetype=yara
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-au filetype go inoremap <buffer> . .<C-x><C-o>
+autocmd VimEnter * NERDTree
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <Leader>, <ESC>:w<CR>i
@@ -169,11 +184,6 @@ let g:go_highlight_generate_tags = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_addtags_transform = "camelcase"
-
-" Auto formatting and importing
-let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
-
 " nerdCommenter
 let g:ERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
