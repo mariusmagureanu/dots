@@ -20,6 +20,7 @@ treesitter.setup({
 		"json",
 		"yaml",
 		"markdown",
+		"python",
 		"markdown_inline",
 		"bash",
 		"lua",

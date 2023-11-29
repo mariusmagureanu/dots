@@ -1,6 +1,3 @@
-vim.opt.termguicolors = true
-vim.opt.completeopt = "menu"
-
 require("plugins-setup")
 
 require("core.colorscheme")

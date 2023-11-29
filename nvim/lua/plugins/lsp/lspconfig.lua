@@ -43,6 +43,8 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
+vim.lsp.set_log_level("error")
+
 lspconfig["pyright"].setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -57,6 +59,7 @@ lspconfig["gopls"].setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
 lspconfig["terraformls"].setup({
 	on_attach = on_attach,
 	capabilities = capabilities,

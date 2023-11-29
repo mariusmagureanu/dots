@@ -13,7 +13,7 @@ local packer_bootstrap = ensure_packer() -- true if packer was just installed
 
 -- autocommand that reloads neovim and installs/updates/removes plugins
 -- when file is saved
-vim.cmd([[
+vim.cmd([[ 
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
@@ -30,10 +30,14 @@ return packer.startup(function(use)
 	-- packer can manage itself
 	use("wbthomason/packer.nvim")
 
+	-- let's see what options we have when hitting the leader
+	use("folke/which-key.nvim")
+
 	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
 	use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
 	use({ "bluz71/vim-moonfly-colors", branch = "cterm-compat" })
+	use("craftzdog/solarized-osaka.nvim")
 
 	use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
@@ -57,10 +61,11 @@ return packer.startup(function(use)
 
 	-- fuzzy finding w/ telescope
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
-	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
+	use({ "nvim-telescope/telescope.nvim" }) -- fuzzy finder
 
 	-- autocompletion
 	use("hrsh7th/nvim-cmp") -- completion plugin
+	use("hrsh7th/cmp-nvim-lsp") -- completion plugin
 	use("hrsh7th/cmp-buffer") -- source for text in buffer
 	use("hrsh7th/cmp-path") -- source for file system paths
 	use("hrsh7th/cmp-cmdline") -- command line suggestions
@@ -77,27 +82,24 @@ return packer.startup(function(use)
 
 	-- configuring lsp servers
 	use("neovim/nvim-lspconfig") -- easily configure language servers
-	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-
+	use({
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		config = function()
+			require("lspsaga").setup({})
+		end,
+	})
 	use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 
 	-- formatting & linting
 	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
 	use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
 
+	-- treesitter configuration
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
-	})
-
-	use({
-		"glepnir/lspsaga.nvim",
-		branch = "main",
-		config = function()
-			require("lspsaga").setup({})
+			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
 	})
 
@@ -116,6 +118,8 @@ return packer.startup(function(use)
 	use("fladson/vim-kitty")
 
 	use("fatih/vim-go")
+
+	use("sebdah/vim-delve")
 
 	if packer_bootstrap then
 		require("packer").sync()

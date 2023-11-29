@@ -1,5 +1,15 @@
 local opt = vim.opt -- for conciseness
 
+-- Decrease update time
+opt.updatetime = 250
+opt.timeoutlen = 300
+
+-- Set completeopt to have a better completion experience
+opt.completeopt = "menuone,noselect"
+
+-- NOTE: You should make sure your terminal supports this
+opt.termguicolors = true
+
 -- line numbers
 -- opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
@@ -39,3 +49,13 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 opt.iskeyword:append("-") -- consider string-string as whole word
+
+require("which-key").register({
+	["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
+	["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
+	["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
+	["<leader>h"] = { name = "More git", _ = "which_key_ignore" },
+	["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
+	["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
+	["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+})
