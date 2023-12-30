@@ -113,7 +113,7 @@ return packer.startup(function(use)
 	use("juliosueiras/vim-terraform-completion") -- terraform
 	use("hashivim/vim-terraform")
 
-	use("majutsushi/tagbar")
+	use("preservim/tagbar")
 
 	use("fladson/vim-kitty")
 
