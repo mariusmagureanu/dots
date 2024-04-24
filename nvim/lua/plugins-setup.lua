@@ -42,6 +42,11 @@ return packer.startup(function(use)
 	use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
 	use("szw/vim-maximizer") -- maximizes and restores current window
+	use("morhetz/gruvbox") -- gruvbox theme
+	use("ayu-theme/ayu-vim") -- ayu theme
+	use("decaycs/decay.nvim") -- decay theme
+	use("xStormyy/bearded-theme.nvim")
+	use("projekt0n/github-nvim-theme")
 
 	-- essential plugins
 	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
