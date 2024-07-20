@@ -31,7 +31,8 @@ return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- let's see what options we have when hitting the leader
-	use("folke/which-key.nvim")
+	--	use("folke/which-key.nvim")
+	use("echasnovski/mini.icons")
 
 	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
@@ -67,6 +68,7 @@ return packer.startup(function(use)
 
 	-- vs-code like icons
 	use("kyazdani42/nvim-web-devicons")
+	use("ryanoasis/vim-devicons")
 
 	-- statusline
 	use("nvim-lualine/lualine.nvim")
