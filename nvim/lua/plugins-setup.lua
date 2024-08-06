@@ -34,6 +34,8 @@ return packer.startup(function(use)
 	--	use("folke/which-key.nvim")
 	use("echasnovski/mini.icons")
 
+	use("tpope/vim-fugitive")
+
 	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
 	use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme

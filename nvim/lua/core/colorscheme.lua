@@ -2,7 +2,7 @@
 -- in case it isn't installed
 -- local status, _ = pcall(vim.cmd, "colorscheme moonfly")
 -- vim.cmd.colorscheme("moonfly")
-vim.cmd.colorscheme("base16-atlas")
+vim.cmd.colorscheme("base16-brewer")
 -- if not status then
 -- 	print("Colorscheme not found!") -- print error if colorscheme not installed
 -- 	return
