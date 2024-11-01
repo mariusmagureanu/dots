@@ -1,5 +1,6 @@
 -- set leader key to comma
 vim.g.mapleader = ","
+vim.g.rustfmt_autosave = 1
 
 local keymap = vim.keymap -- for conciseness
 
