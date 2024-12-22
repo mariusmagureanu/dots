@@ -1,5 +1,3 @@
-local fn = vim.fn
-
 return {
 
 	{
@@ -21,7 +19,7 @@ return {
 					-- See the full "keymap" documentation for information on defining your own keymap.
 					keymap = { preset = "enter" },
 
-					fuzzy = { prebuilt_binaries = { download = false } },
+					fuzzy = { prebuilt_binaries = { download = true } },
 
 					-- keymap = {
 					-- 	["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -120,6 +118,8 @@ return {
 
 			lspconfig["lua_ls"].setup({ capabilities = capabilities })
 			lspconfig["rust_analyzer"].setup({ capabilities = capabilities })
+			lspconfig["terraformls"].setup({ capabilities = capabilities })
+			lspconfig["gopls"].setup({ capabilities = capabilities })
 		end,
 	},
 }
