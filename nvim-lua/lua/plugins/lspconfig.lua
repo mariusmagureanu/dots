@@ -13,33 +13,9 @@ return {
 				version = "*",
 				event = { "InsertEnter", "CmdlineEnter" },
 				opts = {
-					-- 'default' for mappings similar to built-in completion
-					-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-					-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-					-- See the full "keymap" documentation for information on defining your own keymap.
 					keymap = { preset = "enter" },
 
 					fuzzy = { prebuilt_binaries = { download = true } },
-
-					-- keymap = {
-					-- 	["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
-					-- 	["<C-e>"] = { "hide" },
-					-- 	["<CR>"] = { "accept", "fallback" },
-					-- 	["<Tab>"] = { "select_next", "fallback" },
-					-- 	["<S-Tab>"] = { "select_prev", "fallback" },
-					-- 	["<C-d>"] = { "scroll_documentation_down", "fallback" },
-					-- 	["<C-u>"] = { "scroll_documentation_up", "fallback" },
-					-- 	["<C-n>"] = { "snippet_forward", "fallback" },
-					-- 	["<C-p>"] = { "snippet_backward", "fallback" },
-					-- 	["<Down>"] = {},
-					-- 	["<Up>"] = {},
-					--
-					-- 	cmdline = {
-					-- 		["<CR>"] = { "accept", "fallback" },
-					-- 		["<Tab>"] = { "select_next", "fallback" },
-					-- 		["<S-Tab>"] = { "select_prev", "fallback" },
-					-- 	},
-					-- },
 
 					appearance = {
 						use_nvim_cmp_as_default = true,
@@ -84,7 +60,6 @@ return {
 
 			{ "hrsh7th/cmp-buffer" }, -- source for text in buffer
 			{ "hrsh7th/cmp-path" }, -- source for file system paths
-			--  { "hrsh7th/cmp-cmdline" },   -- command line suggestions
 			{ "petertriho/cmp-git" }, -- git
 			{ "delphinus/cmp-ctags" }, -- ctags source
 			-- snippets
@@ -120,6 +95,7 @@ return {
 			lspconfig["rust_analyzer"].setup({ capabilities = capabilities })
 			lspconfig["terraformls"].setup({ capabilities = capabilities })
 			lspconfig["gopls"].setup({ capabilities = capabilities })
+			lspconfig["bashls"].setup({ capabilities = capabilities })
 		end,
 	},
 }
