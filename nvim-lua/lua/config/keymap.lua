@@ -27,3 +27,7 @@ keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
 keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+keymap.set("n", "<Leader>o", "<cmd>Lspsaga outline<CR>")
+
+-- Tagbar
+keymap.set("n", "<Leader>tb", "<cmd>TagbarToggle<CR>")
