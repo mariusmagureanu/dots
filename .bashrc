@@ -1,9 +1,9 @@
-#  _               _
-# | |__   __ _ ___| |__  _ __ ___
-# | '_ \ / _` / __| '_ \| '__/ __|
-# | |_) | (_| \__ \ | | | | | (__
-# |_.__/ \__,_|___/_| |_|_|  \___|
-#
+##  _               _
+## | |__   __ _ ___| |__  _ __ ___
+## | '_ \ / _` / __| '_ \| '__/ __|
+## | |_) | (_| \__ \ | | | | | (__
+## |_.__/ \__,_|___/_| |_|_|  \___|
+##
 
 [[ $- != *i* ]] && return
 shopt -s autocd
@@ -37,6 +37,7 @@ export KUBECOLOR_PRESET=pre-0.0.21-dark
 source <(kubectl completion bash)
 complete -C '/usr/bin/aws_completer' aws
 source /usr/share/fzf/key-bindings.bash
+source /usr/share/bash-completion/completions/git
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -132,9 +133,3 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export LESS="--RAW-CONTROL-CHARS"
 [[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
-
-complete -C /home/marius/workspace/go_wrk/src/github.com/terraform/terraform-bin terraform
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
