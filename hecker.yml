@@ -100,3 +100,7 @@
         - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "/usr/local/bin/i3-keyboard-layout", mode: '0755'}
         - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: '0644'}
         - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
+    - name: Install various YAY packages
+      command: yay -S --noconfirm tfenv
+      become: yes
+      become_user: "{{ user_name }}"
