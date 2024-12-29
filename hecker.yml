@@ -72,6 +72,8 @@
         version: master
     - name: Install yay
       command: "makepkg -Si"
+      become: yes
+      become_user: "{{ user_name }}"
       args:
         chdir: "{{ workspace_dir }}/yay"
     - name: Create or update the ~/.config/nvim symlink
