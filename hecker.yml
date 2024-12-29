@@ -29,7 +29,6 @@
       - ripgrep
       - rofi
       - rustup
-      - terraform
       - unzip
       - yazi
   tasks:
@@ -70,6 +69,10 @@
         dest: "{{ workspace_dir }}/yay"
         update: yes
         version: master
+    - name: Install yay
+      command: "makepkg -Si"
+      args:
+        chdir: "{{ workspace_dir }}/yay"
     - name: Create or update the ~/.config/nvim symlink
       file:
         src: "{{ workspace_dir }}/dots/nvim-lua"
