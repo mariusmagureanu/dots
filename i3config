@@ -206,5 +206,5 @@ bar {
         urgent_workspace   #aa0000 #990000 #ffffff
     }
     position top 
-    status_command ~/.config/i3/conky-i3bar.sh
+    status_command conky-i3bar.sh
 }
