@@ -71,7 +71,7 @@
         update: yes
         version: master
     - name: Install yay
-      command: "makepkg -Si"
+      command: "makepkg -Sif"
       become: yes
       become_user: "{{ user_name }}"
       args:
