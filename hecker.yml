@@ -30,6 +30,7 @@
       - rofi
       - rustup
       - unzip
+      - tmux
       - yazi
   tasks:
     - name: Ensure the workspace directory exists
