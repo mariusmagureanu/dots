@@ -6,10 +6,10 @@
     group_name: "wheel"
     workspace_dir: "/home/{{ user_name }}/workspace"
     packages:
+      - bash-completion
       - btop
       - clang
       - conky
-      - bash-completion
       - curl
       - dmenu
       - docker
@@ -17,20 +17,23 @@
       - eza
       - fastfetch
       - fd
+      - fzf
       - git
       - go
       - i3
+      - i3lock
       - kitty
-      - tig
-      - fzf
       - kubectl
       - lua51
       - neovim
+      - nodejs
+      - openssh
       - ripgrep
       - rofi
       - rustup
-      - unzip
+      - tig
       - tmux
+      - unzip
       - yazi
   tasks:
     - name: Ensure the workspace directory exists
