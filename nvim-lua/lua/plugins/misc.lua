@@ -59,4 +59,12 @@ return {
 	{
 		"preservim/tagbar",
 	},
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
 }
