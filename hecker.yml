@@ -38,6 +38,8 @@
       - rustup
       - tig
       - tmux
+      - noto-fonts
+      - noto-fonts-emoji
       - unzip
       - xsel
       - xpdf
@@ -48,7 +50,6 @@
       - kubecolor
       - terraform-docs-bin
       - tfenv
-      - ttf-yosemite-san-francisco-font-git
     config_files:
       - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
       - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: '0644'}
