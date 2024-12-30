@@ -8,6 +8,7 @@
     config_dir: "/home/{{ user_name }}/.config"
     bin_dir: "/usr/local/bin"
     packages:
+      - autoconf
       - bash-completion
       - btop
       - clang
@@ -39,8 +40,10 @@
       - tmux
       - unzip
       - xsel
+      - xpdf
       - yazi
     yay_packages:
+      - aws-cli-v2-bin
       - brave-bin
       - kubecolor
       - terraform-docs-bin
