@@ -30,6 +30,8 @@
       - lua51
       - neovim
       - nodejs
+      - noto-fonts
+      - noto-fonts-emoji
       - openssh
       - pre-commit
       - python3
@@ -38,11 +40,10 @@
       - rustup
       - tig
       - tmux
-      - noto-fonts
-      - noto-fonts-emoji
+      - ttf-sourcecodepro-nerd
       - unzip
-      - xsel
       - xpdf
+      - xsel
       - yazi
     yay_packages:
       - aws-cli-v2-bin
@@ -114,7 +115,3 @@
         group: "{{ group_name }}"
         mode: "{{ item.mode }}"
       loop: "{{ config_files }}"
-    - name: Install Adobe Source Code Pro font
-      pacman:
-        name: ttf-sourcecodepro-nerd
-        state: present
