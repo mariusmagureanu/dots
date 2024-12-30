@@ -4,6 +4,8 @@ return {
 
 	{ "morhetz/gruvbox", lazy = false },
 
+	{ "HiPhish/rainbow-delimiters.nvim" },
+
 	{ --* Show images in markdown files, imagemagick-dev is required *--
 		"3rd/image.nvim",
 		ft = "markdown",
