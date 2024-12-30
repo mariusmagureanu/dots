@@ -37,6 +37,7 @@
       - tig
       - tmux
       - unzip
+      - xsel
       - yazi
     yay_packages:
       - brave-bin
