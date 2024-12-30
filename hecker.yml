@@ -39,19 +39,20 @@
       - unzip
       - yazi
     yay_packages:
-      - tfenv
+      - brave-bin
       - kubecolor
       - terraform-docs-bin
+      - tfenv
     config_files:
-      - {src: "{{ workspace_dir }}/dots/kitty.conf", dest: "{{ config_dir }}/kitty/kitty.conf", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/conky-i3bar.sh", dest: "{{ bin_dir }}/conky-i3bar.sh", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "{{ bin_dir }}/i3-keyboard-layout", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: '0644'}
       - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
       - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/conky-i3bar.sh", dest: "{{ bin_dir }}/conky-i3bar.sh", mode: '0755'}
+      - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "{{ bin_dir }}/i3-keyboard-layout", mode: '0755'}
       - {src: "{{ workspace_dir }}/dots/i3config", dest: "{{ config_dir }}/i3/config", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/kitty.conf", dest: "{{ config_dir }}/kitty/kitty.conf", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: '0755'}
+      - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: '0644'}
   tasks:
     - name: Ensure required directories exist
       file:
@@ -76,14 +77,19 @@
         dest: "{{ workspace_dir }}/dots"
         update: yes
         version: alt
+    - name: Clone or update the yay repository
+      git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: "{{ workspace_dir }}/yay"
+        update: yes
+      become: yes
+      become_user: "{{ user_name }}"
     - name: Install yay if not already installed
       command: "makepkg -Sif --noconfirm"
+      become: yes
       become_user: "{{ user_name }}"
       args:
         chdir: "{{ workspace_dir }}/yay"
-      when: not ansible_facts['pkg_mgr'].get('yay', False)
-      register: yay_installed
-      failed_when: yay_installed.rc not in [0, 1]
     - name: Install additional YAY packages
       command: yay -S --noconfirm "{{ item }}"
       become_user: "{{ user_name }}"
