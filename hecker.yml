@@ -40,6 +40,7 @@
       - rustup
       - tig
       - tmux
+      - ttf-firacode-nerd
       - ttf-sourcecodepro-nerd
       - unzip
       - xpdf
@@ -84,7 +85,7 @@
         repo: https://github.com/mariusmagureanu/dots
         dest: "{{ workspace_dir }}/dots"
         update: yes
-        version: alt
+        version: master
     - name: Clone or update the yay repository
       git:
         repo: https://aur.archlinux.org/yay.git
