@@ -28,11 +28,11 @@ jobs:
       - name: Start Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          docker run -d --name test-container -v ${{ github.workspace }}:/workspace ${{ matrix.container }} sleep 600
+          docker run -d --name dots-container -v ${{ github.workspace }}:/workspace ${{ matrix.container }} sleep 600
       - name: Install Ansible in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          docker exec test-container bash -c "
+          docker exec dots-container bash -c "
           if command -v pacman > /dev/null; then
             pacman -Sy --noconfirm ansible;
           elif command -v apt-get > /dev/null; then
@@ -41,13 +41,17 @@ jobs:
             dnf install -y ansible;
           fi
           "
+      - name: Create User 'marius' in Container
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker exec dots-container bash -c "
+          useradd -m marius
+          "
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          pwd
-          ls
-          docker exec test-container ansible-playbook workspace/hecker.yml
+          docker exec dots-container ansible-playbook workspace/hecker.yml
       - name: Stop and Remove Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          docker stop test-container && docker rm test-container
+          docker stop dots-container && docker rm dots-container
