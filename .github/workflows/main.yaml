@@ -7,6 +7,7 @@ on:
 jobs:
   test-dots:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         container: [archlinux, 'debian:latest', 'fedora:latest']
