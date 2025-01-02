@@ -29,7 +29,7 @@ jobs:
       - name: Run Ansible Playbook on macOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
-          ansible-playbook -i localhost, hecker.yml
+          ansible-playbook hecker.yml
       # Linux Steps with Containers
       - name: Pull Container Image
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -54,7 +54,7 @@ jobs:
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          docker exec test-container ansible-playbook -i localhost, hecker.yml
+          docker exec test-container ansible-playbook hecker.yml
       - name: Stop and Remove Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
