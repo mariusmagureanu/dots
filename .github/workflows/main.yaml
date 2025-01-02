@@ -35,11 +35,11 @@ jobs:
         run: |
           docker exec dots-container bash -c "
           if command -v pacman > /dev/null; then
-            pacman -Sy --noconfirm ansible;
+            pacman -Sy --noconfirm ansible sudo;
           elif command -v apt-get > /dev/null; then
-            apt-get update && apt-get install -y ansible;
+            apt-get update && apt-get install -y ansible sudo;
           elif command -v dnf > /dev/null; then
-            dnf install -y ansible;
+            dnf install -y ansible sudo;
           fi
           "
       - name: Create User 'marius' in Container
