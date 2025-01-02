@@ -21,16 +21,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      # MacOS Steps
-      - name: Install Ansible on macOS
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: |
-          brew install ansible
-      - name: Run Ansible Playbook on macOS
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: |
-          ansible-playbook ../../hecker.yml
-      # Linux Steps with Containers
       - name: Pull Container Image
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
@@ -54,7 +44,9 @@ jobs:
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          docker exec test-container ansible-playbook ../../hecker.yml
+          pwd
+          ls
+          docker exec test-container ansible-playbook workspace/hecker.yml
       - name: Stop and Remove Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
