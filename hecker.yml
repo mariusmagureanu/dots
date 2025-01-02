@@ -1,0 +1,118 @@
+- name: Set up Arch Linux environment for Marius
+  hosts: localhost
+  become: yes
+  vars:
+    user_name: "marius"
+    group_name: "wheel"
+    workspace_dir: "/home/{{ user_name }}/workspace"
+    config_dir: "/home/{{ user_name }}/.config"
+    bin_dir: "/usr/local/bin"
+    packages:
+      - autoconf
+      - bash-completion
+      - btop
+      - clang
+      - conky
+      - curl
+      - dmenu
+      - docker
+      - docker-compose
+      - eza
+      - fastfetch
+      - fd
+      - fzf
+      - git
+      - go
+      - i3
+      - i3lock
+      - kitty
+      - kubectl
+      - lua51
+      - neovim
+      - nodejs
+      - noto-fonts
+      - noto-fonts-emoji
+      - openssh
+      - pre-commit
+      - python3
+      - ripgrep
+      - rofi
+      - rustup
+      - tig
+      - tmux
+      - ttf-firacode-nerd
+      - ttf-sourcecodepro-nerd
+      - unzip
+      - xpdf
+      - xsel
+      - yazi
+    yay_packages:
+      - aws-cli-v2-bin
+      - brave-bin
+      - kubecolor
+      - terraform-docs-bin
+      - tfenv
+    config_files:
+      - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/conky-i3bar.sh", dest: "{{ bin_dir }}/conky-i3bar.sh", mode: '0755'}
+      - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "{{ bin_dir }}/i3-keyboard-layout", mode: '0755'}
+      - {src: "{{ workspace_dir }}/dots/i3config", dest: "{{ config_dir }}/i3/config", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/kitty.conf", dest: "{{ config_dir }}/kitty/kitty.conf", mode: '0644'}
+      - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: '0755'}
+      - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: '0644'}
+  tasks:
+    - name: Ensure required directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+        mode: '0755'
+      loop:
+        - "{{ workspace_dir }}"
+        - "{{ config_dir }}/kitty"
+        - "{{ config_dir }}/rofi"
+        - "{{ bin_dir }}"
+    - name: Update the package database and install base packages
+      pacman:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+    - name: Clone or update the dots repository
+      git:
+        repo: https://github.com/mariusmagureanu/dots
+        dest: "{{ workspace_dir }}/dots"
+        update: yes
+        version: master
+    - name: Clone or update the yay repository
+      git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: "{{ workspace_dir }}/yay"
+        update: yes
+      become: yes
+      become_user: "{{ user_name }}"
+    - name: Install yay if not already installed
+      command: "makepkg -Sif --noconfirm"
+      become: yes
+      become_user: "{{ user_name }}"
+      args:
+        chdir: "{{ workspace_dir }}/yay"
+    - name: Install additional YAY packages
+      command: yay -S --noconfirm "{{ item }}"
+      become_user: "{{ user_name }}"
+      loop: "{{ yay_packages }}"
+    - name: Create or update the ~/.config/nvim symlink
+      file:
+        src: "{{ workspace_dir }}/dots/nvim-lua"
+        dest: "{{ config_dir }}/nvim"
+        state: link
+    - name: Copy configuration and script files
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+        mode: "{{ item.mode }}"
+      loop: "{{ config_files }}"
