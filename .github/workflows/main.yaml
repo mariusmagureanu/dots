@@ -16,7 +16,7 @@ jobs:
           - os: ubuntu-latest
             container: debian:latest
           - os: ubuntu-latest
-            container: centos:latest
+            container: fedora:latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
