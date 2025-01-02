@@ -1,0 +1,61 @@
+name: Install Dots
+on:
+  push:
+    branches:
+      - gha
+  pull_request:
+jobs:
+  test-dots:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        container: [archlinux, 'debian:latest', 'centos:latest']
+        include:
+          - os: ubuntu-latest
+            container: archlinux
+          - os: ubuntu-latest
+            container: debian:latest
+          - os: ubuntu-latest
+            container: centos:latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # MacOS Steps
+      - name: Install Ansible on macOS
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          brew install ansible
+      - name: Run Ansible Playbook on macOS
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          ansible-playbook -i localhost, hecker.yaml
+      # Linux Steps with Containers
+      - name: Pull Container Image
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker pull ${{ matrix.container }}
+      - name: Start Container
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker run -d --name test-container -v ${{ github.workspace }}:/workspace ${{ matrix.container }} sleep 600
+      - name: Install Ansible in Container
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker exec test-container bash -c "
+          if command -v pacman > /dev/null; then
+            pacman -Sy --noconfirm ansible;
+          elif command -v apt-get > /dev/null; then
+            apt-get update && apt-get install -y ansible;
+          elif command -v yum > /dev/null; then
+            yum install -y epel-release && yum install -y ansible;
+          fi
+          "
+      - name: Run Ansible Playbook in Container
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker exec test-container ansible-playbook -i localhost, /workspace/hecker.yaml
+      - name: Stop and Remove Container
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker stop test-container && docker rm test-container
