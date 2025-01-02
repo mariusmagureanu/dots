@@ -48,6 +48,13 @@ jobs:
           docker exec dots-container bash -c "
           useradd -m marius
           "
+      - name: Update the PATH
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          docker exec dots-container bash -c "
+          export PATH=$PATH:/usr/local/bin:/usr/bin
+          echo $PATH
+          "
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
