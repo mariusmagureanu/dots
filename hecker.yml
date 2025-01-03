@@ -94,7 +94,7 @@
       become: yes
       become_user: "{{ user_name }}"
     - name: Install yay if not already installed
-      command: "makepkg -Sif --noconfirm"
+      command: "makepkg -sif --noconfirm"
       become: yes
       become_user: "{{ user_name }}"
       args:
