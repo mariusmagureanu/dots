@@ -97,6 +97,7 @@
       command: "makepkg -sif --noconfirm"
       become: yes
       become_user: "{{ user_name }}"
+      become_flags: "NOPASSWD: ALL"
       args:
         chdir: "{{ workspace_dir }}/yay"
     - name: Install additional YAY packages
