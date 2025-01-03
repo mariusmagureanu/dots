@@ -35,11 +35,11 @@ jobs:
         run: |
           docker exec dots-container bash -c "
           if command -v pacman > /dev/null; then
-            pacman -Sy --noconfirm ansible sudo git base-devel fakeroot debugedit;
+            pacman -Sy --noconfirm ansible sudo git base-devel fakeroot debugedit go;
           elif command -v apt-get > /dev/null; then
-            apt-get update && apt-get install -y ansible sudo;
+            apt-get update && apt-get install -y ansible sudo go;
           elif command -v dnf > /dev/null; then
-            dnf install -y ansible sudo;
+            dnf install -y ansible sudo go;
           fi
           "
       - name: Create User 'marius' in Container
@@ -47,13 +47,6 @@ jobs:
         run: |
           docker exec dots-container bash -c "
           useradd -m marius
-          "
-      - name: Update the PATH
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          docker exec dots-container bash -c "
-          export PATH=$PATH:/usr/local/bin:/usr/bin
-          echo $PATH
           "
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}

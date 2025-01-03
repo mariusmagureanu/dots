@@ -93,11 +93,14 @@
         update: yes
       become: yes
       become_user: "{{ user_name }}"
-    - name: Install yay if not already installed
-      command: "makepkg -sif --noconfirm"
-      become: yes
+    - name: Prepare yay PKGBUILD
+      command: "makepkg -sf --noconfirm"
       become_user: "{{ user_name }}"
-      become_flags: "NOPASSWD: ALL"
+      args:
+        chdir: "{{ workspace_dir }}/yay"
+    - name: Install YAY
+      command: "pacman -U yay-12.*-x86_64.pkg.tar.zst --noconfirm"
+      become: yes
       args:
         chdir: "{{ workspace_dir }}/yay"
     - name: Install additional YAY packages
