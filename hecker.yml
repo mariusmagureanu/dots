@@ -19,7 +19,6 @@
       - docker-compose
       - fzf
       - git
-      - go
       - i3
       - i3lock
       - kitty
@@ -47,6 +46,7 @@
       - eza
       - fastfetch
       - fd
+      - go
       - lua51
       - noto-fonts
       - noto-fonts-emoji
