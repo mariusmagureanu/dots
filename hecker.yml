@@ -97,7 +97,7 @@
         repo: https://github.com/mariusmagureanu/dots
         dest: "{{ workspace_dir }}/dots"
         update: yes
-        version: gha
+        version: master
     - name: Clone or update the yay repository
       git:
         repo: https://aur.archlinux.org/yay.git
