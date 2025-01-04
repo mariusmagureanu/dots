@@ -7,7 +7,7 @@
     workspace_dir: "/home/{{ user_name }}/workspace"
     config_dir: "/home/{{ user_name }}/.config"
     bin_dir: "/usr/local/bin"
-    packages:
+    common_packages:
       - autoconf
       - bash-completion
       - btop
@@ -27,11 +27,8 @@
       - i3lock
       - kitty
       - kubectl
-      - lua51
       - neovim
       - nodejs
-      - noto-fonts
-      - noto-fonts-emoji
       - openssh
       - pre-commit
       - python3
@@ -40,18 +37,22 @@
       - rustup
       - tig
       - tmux
-      - ttf-firacode-nerd
-      - ttf-sourcecodepro-nerd
       - unzip
       - xpdf
       - xsel
-      - yazi
     yay_packages:
       - aws-cli-v2-bin
       - brave-bin
       - kubecolor
       - terraform-docs-bin
       - tfenv
+    arch_packages:
+      - lua51
+      - noto-fonts
+      - noto-fonts-emoji
+      - ttf-firacode-nerd
+      - ttf-sourcecodepro-nerd
+      - yazi
     config_files:
       - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
       - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: '0644'}
@@ -81,13 +82,13 @@
         - "{{ bin_dir }}"
     - name: Install packages on Fedora or Debian
       package:
-        name: "{{ packages }}"
+        name: "{{ common_packages }}"
         state: present
         update_cache: yes
       when: ansible_facts['distribution'] != 'Archlinux'
     - name: Install packages on Arch Linux
       pacman:
-        name: "{{ packages }}"
+        name: "{{ common_packages + arch_packages }}"
         state: present
         update_cache: yes
       when: ansible_facts['distribution'] == 'Archlinux'
