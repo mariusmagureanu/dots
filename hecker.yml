@@ -79,11 +79,18 @@
         - "{{ config_dir }}/rofi"
         - "{{ config_dir }}/i3"
         - "{{ bin_dir }}"
-    - name: Update the package database and install base packages
+    - name: Install packages on Fedora or Debian
+      package:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      when: ansible_facts['distribution'] != 'Archlinux'
+    - name: Install packages on Arch Linux
       pacman:
         name: "{{ packages }}"
         state: present
         update_cache: yes
+      when: ansible_facts['distribution'] == 'Archlinux'
     - name: Clone or update the dots repository
       git:
         repo: https://github.com/mariusmagureanu/dots
@@ -97,22 +104,26 @@
         update: yes
       become: yes
       become_user: "{{ user_name }}"
+      when: ansible_facts['distribution'] == 'Archlinux'
     - name: Prepare yay PKGBUILD
       command: "makepkg -sfc --noconfirm"
       become_user: "{{ user_name }}"
       args:
         chdir: "{{ workspace_dir }}/yay"
+      when: ansible_facts['distribution'] == 'Archlinux'
     - name: Install YAY
       shell: "pacman -U *.zst --noconfirm"
       become: yes
       args:
         chdir: "{{ workspace_dir }}/yay"
+      when: ansible_facts['distribution'] == 'Archlinux'
     - name: Install additional YAY packages
       command: yay -S --noconfirm "{{ item }}"
       become_user: "{{ user_name }}"
       become: yes
       loop: "{{ yay_packages }}"
       ignore_errors: yes
+      when: ansible_facts['distribution'] == 'Archlinux'
     - name: Create or update the ~/.config/nvim symlink
       file:
         src: "{{ workspace_dir }}/dots/nvim-lua"
