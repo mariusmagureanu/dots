@@ -2,7 +2,7 @@ name: Install Dots
 on:
   push:
     branches:
-      - gha
+      - master
   pull_request:
 jobs:
   test-dots:
