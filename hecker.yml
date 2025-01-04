@@ -22,15 +22,12 @@
       - i3
       - i3lock
       - kitty
-      - kubectl
       - neovim
       - nodejs
-      - openssh
       - pre-commit
       - python3
       - ripgrep
       - rofi
-      - rustup
       - tig
       - tmux
       - unzip
@@ -47,9 +44,12 @@
       - fastfetch
       - fd
       - go
+      - kubectl
       - lua51
       - noto-fonts
       - noto-fonts-emoji
+      - openssh
+      - rustup
       - ttf-firacode-nerd
       - ttf-sourcecodepro-nerd
       - yazi
