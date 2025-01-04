@@ -1,3 +1,5 @@
+[![Install Dots](https://github.com/mariusmagureanu/dots/actions/workflows/main.yaml/badge.svg)](https://github.com/mariusmagureanu/dots/actions/workflows/main.yaml)
+
 ## :rocket: About
 
 This repository installs and configures Neovim along with other tools in order to yield an out of the box developer experience.
