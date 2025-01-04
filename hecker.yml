@@ -17,7 +17,6 @@
       - dmenu
       - docker
       - docker-compose
-      - eza
       - fastfetch
       - fd
       - fzf
@@ -47,6 +46,7 @@
       - terraform-docs-bin
       - tfenv
     arch_packages:
+      - eza
       - lua51
       - noto-fonts
       - noto-fonts-emoji
