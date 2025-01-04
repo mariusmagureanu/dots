@@ -63,6 +63,9 @@
       - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: '0755'}
       - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: '0644'}
   tasks:
+    - name: Check the distribution
+      debug:
+        msg: "Running distro: {{ ansible_facts['distribution'] }}"
     - name: Ensure required directories exist
       file:
         path: "{{ item }}"
@@ -95,7 +98,7 @@
       become: yes
       become_user: "{{ user_name }}"
     - name: Prepare yay PKGBUILD
-      command: "makepkg -sf --noconfirm"
+      command: "makepkg -sfc --noconfirm"
       become_user: "{{ user_name }}"
       args:
         chdir: "{{ workspace_dir }}/yay"
