@@ -99,7 +99,7 @@
       args:
         chdir: "{{ workspace_dir }}/yay"
     - name: Install YAY
-      command: "pacman -U (basename *.zst) --noconfirm"
+      command: "pacman -U $(basename *.zst) --noconfirm"
       become: yes
       args:
         chdir: "{{ workspace_dir }}/yay"
