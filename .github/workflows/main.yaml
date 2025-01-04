@@ -46,7 +46,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           docker exec dots-container bash -c "
-          useradd -m marius
+          useradd -m -G wheel marius
           "
       - name: Run Ansible Playbook in Container
         if: ${{ matrix.os == 'ubuntu-latest' }}

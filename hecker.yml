@@ -106,6 +106,7 @@
     - name: Install additional YAY packages
       command: yay -S --noconfirm "{{ item }}"
       become_user: "{{ user_name }}"
+      become_method: sudo
       become: yes
       loop: "{{ yay_packages }}"
     - name: Create or update the ~/.config/nvim symlink
