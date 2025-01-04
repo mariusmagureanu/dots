@@ -17,8 +17,6 @@
       - dmenu
       - docker
       - docker-compose
-      - fastfetch
-      - fd
       - fzf
       - git
       - go
@@ -47,6 +45,8 @@
       - tfenv
     arch_packages:
       - eza
+      - fastfetch
+      - fd
       - lua51
       - noto-fonts
       - noto-fonts-emoji
