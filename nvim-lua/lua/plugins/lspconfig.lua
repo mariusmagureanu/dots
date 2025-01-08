@@ -25,7 +25,7 @@ return {
 					signature = { enabled = true, window = { border = "rounded" } },
 
 					completion = {
-						list = { selection = "auto_insert" }, -- Add completion text on select
+						list = { selection = { preselect = true, auto_insert = true } }, -- Add completion text on select
 						accept = { auto_brackets = { enabled = true } }, -- Add brackets to completions
 						documentation = { auto_show = true, auto_show_delay_ms = 0, window = { border = "rounded" } },
 						ghost_text = { enabled = true },
