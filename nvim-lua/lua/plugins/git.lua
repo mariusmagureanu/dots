@@ -5,7 +5,7 @@ return {
     lazy = false,
     config = function()
       require("gitsigns").setup({
-        _git_version = "2.47.1",
+        _git_version = "2.48.0",
       })
     end,
   },
