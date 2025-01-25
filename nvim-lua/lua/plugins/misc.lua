@@ -40,12 +40,14 @@ return {
 		"OXY2DEV/markview.nvim",
 		ft = "markdown",
 		opts = { -- Do not render text on the line you are on
-			hybrid_modes = { "n" },
-			callbacks = {
-				on_enable = function(_, win)
-					vim.wo[win].conceallevel = 2
-					vim.wo[win].concealcursor = "c"
-				end,
+			preview = {
+				hybrid_modes = { "n" },
+				callbacks = {
+					on_enable = function(_, win)
+						vim.wo[win].conceallevel = 2
+						vim.wo[win].concealcursor = "c"
+					end,
+				},
 			},
 		},
 	},
