@@ -31,3 +31,9 @@ keymap.set("n", "<Leader>o", "<cmd>Lspsaga outline<CR>")
 
 -- Tagbar
 keymap.set("n", "<Leader>tb", "<cmd>TagbarToggle<CR>")
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})

@@ -4,9 +4,7 @@ return {
     "lewis6991/gitsigns.nvim",
     lazy = false,
     config = function()
-      require("gitsigns").setup({
-        _git_version = "2.48.0",
-      })
+      require("gitsigns").setup()
     end,
   },
   {
