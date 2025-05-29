@@ -115,6 +115,12 @@
     - name: Check the distribution
       debug:
         msg: "Running distro: {{ ansible_facts['distribution'] }}"
+    - name: Clone or update the dots repository
+      git:
+        repo: https://github.com/mariusmagureanu/dots
+        dest: "{{ workspace_dir }}/dots"
+        update: yes
+        version: master
     - name: Ensure required directories exist
       file:
         path: "{{ item }}"
