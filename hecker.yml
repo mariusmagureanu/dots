@@ -36,33 +36,81 @@
     yay_packages:
       - aws-cli-v2-bin
       - brave-bin
+      - kind
       - kubecolor
+      - slack-desktop
       - terraform-docs-bin
       - tfenv
     arch_packages:
+      - autopep8
+      - bash-language-server
       - eza
       - fastfetch
       - fd
       - go
       - kubectl
+      - imagemagick
+      - less
       - lua51
+      - lua-language-server
       - noto-fonts
       - noto-fonts-emoji
       - openssh
+      - prettier
+      - python-black
+      - python-pynvim
       - rustup
+      - stylua
+      - tree-sitter
       - ttf-firacode-nerd
       - ttf-sourcecodepro-nerd
       - yazi
     config_files:
-      - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/conky-i3bar.sh", dest: "{{ bin_dir }}/conky-i3bar.sh", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "{{ bin_dir }}/i3-keyboard-layout", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/i3config", dest: "{{ config_dir }}/i3/config", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/kitty.conf", dest: "{{ config_dir }}/kitty/kitty.conf", mode: '0644'}
-      - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: '0755'}
-      - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: '0644'}
+      - {
+          src: "{{ workspace_dir }}/dots/.LESS_TERMCAP",
+          dest: "/home/{{ user_name }}/.LESS_TERMCAP",
+          mode: "0644",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/.bashrc",
+          dest: "/home/{{ user_name }}/.bashrc",
+          mode: "0644",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/.conkyrc",
+          dest: "/home/{{ user_name }}/.conkyrc",
+          mode: "0644",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/conky-i3bar.sh",
+          dest: "{{ bin_dir }}/conky-i3bar.sh",
+          mode: "0755",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/i3-keyboard-layout",
+          dest: "{{ bin_dir }}/i3-keyboard-layout",
+          mode: "0755",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/i3config",
+          dest: "{{ config_dir }}/i3/config",
+          mode: "0644",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/kitty.conf",
+          dest: "{{ config_dir }}/kitty/kitty.conf",
+          mode: "0644",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/rofi-computer",
+          dest: "{{ bin_dir }}/rofi-computer",
+          mode: "0755",
+        }
+      - {
+          src: "{{ workspace_dir }}/dots/rofi.config",
+          dest: "{{ config_dir }}/rofi/config",
+          mode: "0644",
+        }
   tasks:
     - name: Check the distribution
       debug:
@@ -73,7 +121,7 @@
         state: directory
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-        mode: '0755'
+        mode: "0755"
       loop:
         - "{{ workspace_dir }}"
         - "{{ config_dir }}/kitty"
@@ -92,12 +140,6 @@
         state: present
         update_cache: yes
       when: ansible_facts['distribution'] == 'Archlinux'
-    - name: Clone or update the dots repository
-      git:
-        repo: https://github.com/mariusmagureanu/dots
-        dest: "{{ workspace_dir }}/dots"
-        update: yes
-        version: master
     - name: Clone or update the yay repository
       git:
         repo: https://aur.archlinux.org/yay.git
@@ -138,3 +180,6 @@
         group: "{{ group_name }}"
         mode: "{{ item.mode }}"
       loop: "{{ config_files }}"
+    - name: Install rust
+      command: rustup default stable
+      when: ansible_facts['distribution'] == 'Archlinux'
