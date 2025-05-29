@@ -115,12 +115,6 @@
     - name: Check the distribution
       debug:
         msg: "Running distro: {{ ansible_facts['distribution'] }}"
-    - name: Clone or update the dots repository
-      git:
-        repo: https://github.com/mariusmagureanu/dots
-        dest: "{{ workspace_dir }}/dots"
-        update: yes
-        version: master
     - name: Ensure required directories exist
       file:
         path: "{{ item }}"
@@ -173,6 +167,12 @@
       loop: "{{ yay_packages }}"
       ignore_errors: yes
       when: ansible_facts['distribution'] == 'Archlinux'
+    - name: Clone or update the dots repository
+      git:
+        repo: https://github.com/mariusmagureanu/dots
+        dest: "{{ workspace_dir }}/dots"
+        update: yes
+        version: master
     - name: Create or update the ~/.config/nvim symlink
       file:
         src: "{{ workspace_dir }}/dots/nvim-lua"
