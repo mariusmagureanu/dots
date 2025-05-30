@@ -67,6 +67,7 @@
       - ttf-firacode-nerd
       - ttf-sourcecodepro-nerd
       - xorg-xbacklight
+      - xss-lock
       - yazi
     config_files:
       - {
