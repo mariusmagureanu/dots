@@ -1,0 +1,21 @@
+[log]
+    date = relative
+[format]
+    pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(30,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+[diff]
+    tool = kitty
+    guitool = kitty.gui
+[difftool]
+    prompt = false
+    trustExitCode = true
+[difftool "kitty"]
+    cmd = kitty +kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+    cmd = kitty kitty +kitten diff $LOCAL $REMOTE
+[user]
+	name = Marius Magureanu
+  email = mariusmagureanu@live.dk
+[credential]
+	helper = store
+[pull]
+	rebase = true
