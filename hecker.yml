@@ -62,6 +62,7 @@
       - python-black
       - python-pynvim
       - rustup
+      - rust-analyzer
       - stylua
       - tree-sitter
       - ttf-firacode-nerd
