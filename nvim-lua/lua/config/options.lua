@@ -43,6 +43,9 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 
 vim.diagnostic.config({
+	virtual_text = true, -- shows errors inline
+	underline = true, -- underlines problem code
+	update_in_insert = false,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = " ",
