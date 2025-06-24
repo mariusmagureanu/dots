@@ -13,17 +13,17 @@ conky.config = {
 conky.text = [[
 
 [
-    {"full_text": "cpu: ${cpu cpu0}% ", "color":"\#cf6a4c"},
+    {"full_text": "💻 cpu: ${cpu cpu0}% ", "color":"\#cf6a4c"},
     {"full_text": " | ", "color":"\#555555"},
-    {"full_text": "ram: $mem","color":"\#cda869"},
+    {"full_text": "🧠 ram: $mem","color":"\#cda869"},
     {"full_text": " | ", "color":"\#555555"},
     {"full_text": "home: ${fs_free /home}","color":"\#89b859"},
     {"full_text": " | ", "color":"\#555555"},
-    {"full_text": "wi-fi: ${addr wlan0}","color":"\#00aaaa"},
+    {"full_text": "📡 wi-fi: ${addr wlan0}","color":"\#00aaaa"},
     {"full_text": " | ", "color":"\#555555"},
-    {"full_text": "${acpitemp} °C", "color":"\#9b703f"},
+    {"full_text": "🌡${acpitemp} °C", "color":"\#9b703f"},
     {"full_text": " | ", "color":"\#555555"},
-    {"full_text": "battery: ${battery_short}", "color":"\#838184"},
+    {"full_text": "🔋 battery: ${battery_short}", "color":"\#838184"},
     {"full_text": " | ", "color":"\#555555"},
     {"full_text": "${time %A %Y-%m-%d}", "color":"\#cccccc"},
     {"full_text": "${time %H:%M}", "color":"\#cccccc"}
