@@ -102,14 +102,9 @@ return {
 
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			local lspconfig = require("lspconfig")
 
-			lspconfig["lua_ls"].setup({ capabilities = capabilities })
-			lspconfig["terraformls"].setup({ capabilities = capabilities })
-			lspconfig["gopls"].setup({ capabilities = capabilities })
-			lspconfig["bashls"].setup({ capabilities = capabilities })
-			lspconfig["pyright"].setup({ capabilities = capabilities })
-			lspconfig["clangd"].setup({ capabilities = capabilities })
+			vim.lsp.config("*", { capabilities = capabilities })
+			vim.lsp.enable({ "lua_ls", "terraformls", "gopls", "bashls", "pyright", "clangd" })
 		end,
 	},
 }
