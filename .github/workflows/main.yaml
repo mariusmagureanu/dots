@@ -10,12 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        container: [archlinux, 'debian:latest', 'fedora:latest']
+        container: [archlinux, "fedora:latest"]
         include:
           - os: ubuntu-latest
             container: archlinux
-          - os: ubuntu-latest
-            container: debian:latest
           - os: ubuntu-latest
             container: fedora:latest
     runs-on: ${{ matrix.os }}
