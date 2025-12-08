@@ -15,7 +15,6 @@
       - conky
       - curl
       - dmenu
-      - docker
       - docker-compose
       - fzf
       - git
@@ -45,6 +44,7 @@
       - arandr
       - autopep8
       - bash-language-server
+      - docker
       - eza
       - fastfetch
       - fd
