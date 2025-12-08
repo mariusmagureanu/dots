@@ -13,7 +13,7 @@ HISTFILESIZE=''
 export VISUAL="nvim"
 export EDITOR="nvim"
 
-alias ls='exa -lha --group-directories-first'
+alias ls='exa -lha --group-directories-first --icons=always'
 alias vim='nvim'
 alias grep='grep --color=auto'
 alias icat="kitty +kitten icat"
