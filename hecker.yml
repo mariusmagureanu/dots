@@ -48,6 +48,7 @@
       - eza
       - fastfetch
       - fd
+      - fwupd
       - go
       - kubectl
       - imagemagick
