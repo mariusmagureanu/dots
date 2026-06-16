@@ -62,7 +62,8 @@
       - ttf-sourcecodepro-nerd
       - unzip
       - xclip
-      - xorg-xbacklight
+      - brightnessctl
+      - tlp
       - xpdf
       - xsel
       - xss-lock
@@ -173,6 +174,7 @@
       loop:
         - docker
         - sshd
+        - tlp
       when: ansible_facts['virtualization_role'] != 'guest' or ansible_facts['service_mgr'] == 'systemd'
     - name: Install krew
       shell: |

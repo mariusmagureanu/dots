@@ -75,9 +75,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec i3-keyboard-layout set us
 bindsym $mod+x exec i3-keyboard-layout set dk
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -modi drun -show drun
