@@ -127,6 +127,7 @@
       become_user: "{{ user_name }}"
       loop: "{{ yay_packages }}"
       ignore_errors: yes
+      when: ansible_facts['service_mgr'] == 'systemd'
     - name: Clone or update dots
       git:
         repo: https://github.com/mariusmagureanu/dots
@@ -172,6 +173,7 @@
       loop:
         - docker
         - sshd
+      when: ansible_facts['virtualization_role'] != 'guest' or ansible_facts['service_mgr'] == 'systemd'
     - name: Install krew
       shell: |
         set -e
