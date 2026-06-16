@@ -16,6 +16,8 @@
       - curl
       - dmenu
       - docker-compose
+      - maim
+      - starship
       - fzf
       - git
       - i3

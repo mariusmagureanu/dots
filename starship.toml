@@ -1,0 +1,58 @@
+format = """$kubernetes$directory$git_branch$git_status$aws$terraform$cmd_duration$character"""
+
+add_newline = false
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+
+[git_branch]
+format = "on [$branch]($style) "
+style = "bold purple"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold red"
+
+[kubernetes]
+disabled = false
+format = '[⎈ \[$context\]]($style) '
+style = "bold 208"
+
+[[kubernetes.contexts]]
+context_pattern = "arn:aws:eks:.*:.*:cluster/(?P<cluster>.*-pro-.*)"
+context_alias = "$cluster"
+style = "bold red"
+
+[[kubernetes.contexts]]
+context_pattern = "arn:aws:eks:.*:.*:cluster/(?P<cluster>.*)"
+context_alias = "$cluster"
+
+[aws]
+disabled = false
+format = '[$symbol$profile]($style) '
+symbol = ""
+style = "bold yellow"
+
+[terraform]
+disabled = false
+format = '[💠 $workspace]($style) '
+style = "bold 105"
+
+[cmd_duration]
+min_time = 3000
+format = "took [$duration]($style) "
+style = "bold yellow"
+
+[python]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
