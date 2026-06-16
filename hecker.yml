@@ -10,30 +10,34 @@
     common_packages:
       - autoconf
       - bash-completion
+      - bat
       - btop
       - clang
       - conky
       - curl
       - dmenu
       - docker-compose
-      - maim
-      - starship
+      - dunst
       - fzf
       - git
       - i3
       - i3lock
       - kitty
+      - maim
       - neovim
       - nodejs
       - pre-commit
       - python3
       - ripgrep
       - rofi
+      - starship
       - tig
       - tmux
       - unzip
+      - xclip
       - xpdf
       - xsel
+      - zoxide
     yay_packages:
       - aws-cli-v2-bin
       - brave-bin
@@ -68,13 +72,14 @@
       - rust-analyzer
       - stylua
       - tree-sitter
-      - ttf-firacode-nerd
+      - ttf-jetbrains-mono-nerd
       - ttf-sourcecodepro-nerd
       - xorg-xbacklight
       - xss-lock
       - yazi
     config_files:
       - {src: "{{ workspace_dir }}/dots/.LESS_TERMCAP", dest: "/home/{{ user_name }}/.LESS_TERMCAP", mode: "0644"}
+      - {src: "{{ workspace_dir }}/dots/.Xresources", dest: "/home/{{ user_name }}/.Xresources", mode: "0644"}
       - {src: "{{ workspace_dir }}/dots/.bashrc", dest: "/home/{{ user_name }}/.bashrc", mode: "0644"}
       - {src: "{{ workspace_dir }}/dots/.gitconfig", dest: "/home/{{ user_name }}/.gitconfig", mode: "0644"}
       - {src: "{{ workspace_dir }}/dots/.conkyrc", dest: "/home/{{ user_name }}/.conkyrc", mode: "0644"}
@@ -82,6 +87,7 @@
       - {src: "{{ workspace_dir }}/dots/i3-keyboard-layout", dest: "{{ bin_dir }}/i3-keyboard-layout", mode: "0755"}
       - {src: "{{ workspace_dir }}/dots/i3config", dest: "{{ config_dir }}/i3/config", mode: "0644"}
       - {src: "{{ workspace_dir }}/dots/kitty.conf", dest: "{{ config_dir }}/kitty/kitty.conf", mode: "0644"}
+      - {src: "{{ workspace_dir }}/dots/starship.toml", dest: "{{ config_dir }}/starship.toml", mode: "0644"}
       - {src: "{{ workspace_dir }}/dots/rofi-computer", dest: "{{ bin_dir }}/rofi-computer", mode: "0755"}
       - {src: "{{ workspace_dir }}/dots/rofi.config", dest: "{{ config_dir }}/rofi/config", mode: "0644"}
   tasks:
@@ -121,20 +127,14 @@
       become: yes
       become_user: "{{ user_name }}"
       when: ansible_facts['distribution'] == 'Archlinux'
-    - name: Prepare yay PKGBUILD
-      command: "makepkg -sfc --noconfirm"
+    - name: Build and install yay
+      command: "makepkg -si --noconfirm"
       become_user: "{{ user_name }}"
       args:
         chdir: "{{ workspace_dir }}/yay"
       when: ansible_facts['distribution'] == 'Archlinux'
-    - name: Install YAY
-      shell: "pacman -U *.zst --noconfirm"
-      become: yes
-      args:
-        chdir: "{{ workspace_dir }}/yay"
-      when: ansible_facts['distribution'] == 'Archlinux'
-    - name: Install additional YAY packages
-      command: yay -S --noconfirm "{{ item }}"
+    - name: Install AUR packages
+      command: yay -S --noconfirm --needed "{{ item }}"
       become_user: "{{ user_name }}"
       become: yes
       loop: "{{ yay_packages }}"
@@ -146,11 +146,21 @@
         dest: "{{ workspace_dir }}/dots"
         update: yes
         version: master
-    - name: Create or update the ~/.config/nvim symlink
+      become_user: "{{ user_name }}"
+    - name: Clone or update hecker-vim
+      git:
+        repo: https://github.com/mariusmagureanu/hecker-vim
+        dest: "{{ workspace_dir }}/hecker-vim"
+        update: yes
+        version: master
+      become_user: "{{ user_name }}"
+    - name: Create nvim config symlink
       file:
-        src: "{{ workspace_dir }}/dots/nvim-lua"
+        src: "{{ workspace_dir }}/hecker-vim/nvim"
         dest: "{{ config_dir }}/nvim"
         state: link
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
     - name: Copy configuration and script files
       copy:
         src: "{{ item.src }}"
@@ -159,6 +169,33 @@
         group: "{{ group_name }}"
         mode: "{{ item.mode }}"
       loop: "{{ config_files }}"
-    - name: Install rust
+    - name: Install rust stable toolchain
       command: rustup default stable
+      become_user: "{{ user_name }}"
       when: ansible_facts['distribution'] == 'Archlinux'
+    - name: Add user to docker group
+      user:
+        name: "{{ user_name }}"
+        groups: docker
+        append: yes
+    - name: Enable and start services
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+        state: started
+      loop:
+        - docker
+        - sshd
+    - name: Install krew
+      shell: |
+        set -e
+        cd "$(mktemp -d)"
+        OS="$(uname | tr '[:upper:]' '[:lower:]')"
+        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')"
+        KREW="krew-${OS}_${ARCH}"
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
+        tar zxvf "${KREW}.tar.gz"
+        ./"${KREW}" install krew
+      args:
+        creates: "/home/{{ user_name }}/.krew/bin/kubectl-krew"
+      become_user: "{{ user_name }}"
