@@ -113,11 +113,15 @@
         dest: "{{ workspace_dir }}/yay"
         update: yes
       become_user: "{{ user_name }}"
-    - name: Build and install yay
-      command: makepkg -si --noconfirm
+    - name: Build yay
+      command: makepkg -sf --noconfirm
       args:
         chdir: "{{ workspace_dir }}/yay"
       become_user: "{{ user_name }}"
+    - name: Install yay
+      shell: pacman -U --noconfirm *.pkg.tar.zst
+      args:
+        chdir: "{{ workspace_dir }}/yay"
     - name: Install AUR packages
       command: yay -S --noconfirm --needed {{ item }}
       become_user: "{{ user_name }}"
