@@ -1,30 +1,55 @@
 [![Install Dots](https://github.com/mariusmagureanu/dots/actions/workflows/main.yaml/badge.svg)](https://github.com/mariusmagureanu/dots/actions/workflows/main.yaml)
-
-## :rocket: About
-
-This repository installs and configures Neovim along with other tools in order to yield an out of the box developer experience.
-
----
-
-## :sparkles: Running OS(s):
-1. [Arch](https://www.archlinux.org/)
-2. [Parabola](https://www.parabola.nu/)
-
-## :package: Preferred software:
-1. [i3](https://i3wm.org/)
-2. [kitty](https://sw.kovidgoyal.net/kitty/)
-3. [neovim](https://neovim.io)
+[![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?logo=arch-linux&logoColor=fff)](https://archlinux.org/)
+[![i3wm](https://img.shields.io/badge/i3wm-2e2e2e?logo=i3&logoColor=fff)](https://i3wm.org/)
+[![Neovim](https://img.shields.io/badge/Neovim-%3E%3D0.11-57A143?logo=neovim&logoColor=fff)](https://neovim.io/)
 
 ---
 
-## :lock: Requirements
+### 🏠 dotfiles
 
-This trove of goodies is based on [Ansible](https://docs.ansible.com/). It is required to be installed before proceeding any further.
+One Ansible playbook to go from a bare Arch install to a fully configured dev machine. No manual steps, no surprises.
 
+---
 
-## :package: Installation
+### 🧰 What you get
 
+| Layer       | Tool                                                                                                                                                        |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WM          | [i3](https://i3wm.org/) with gaps, no titlebars, clean bar                                                                                                  |
+| Terminal    | [kitty](https://sw.kovidgoyal.net/kitty/) + JetBrains Mono Nerd Font                                                                                        |
+| Editor      | [Neovim](https://neovim.io) via [hecker-vim](https://github.com/mariusmagureanu/hecker-vim)                                                                 |
+| Shell       | bash + [starship](https://starship.rs/) prompt + [fzf](https://github.com/junegunn/fzf) + [zoxide](https://github.com/ajeetdsouza/zoxide)                   |
+| Files       | [yazi](https://yazi-rs.github.io/) + [eza](https://eza.rocks/) + [bat](https://github.com/sharkdp/bat) + [ripgrep](https://github.com/BurntSushi/ripgrep)   |
+| Containers  | Docker + [kubectl](https://kubernetes.io/docs/reference/kubectl/) + [kubecolor](https://github.com/kubecolor/kubecolor) + [krew](https://krew.sigs.k8s.io/) |
+| Cloud       | AWS CLI v2 + Terraform (tfenv)                                                                                                                              |
+| Screenshots | [maim](https://github.com/naelstrof/maim) → file + clipboard                                                                                                |
 
-```shell
-$ ansible-playbook hecker.yml --ask-become-pass
+---
+
+### ⚡ Install
+
+Requires [Ansible](https://docs.ansible.com/):
+
+```sh
+sudo pacman -S ansible
+ansible-playbook hecker.yml --ask-become-pass
 ```
+
+That's it. Open a terminal and start working.
+
+---
+
+### 📁 Structure
+
+```
+hecker.yml          → main playbook
+.bashrc             → shell config (starship, aliases, fzf)
+i3config            → window manager
+kitty.conf          → terminal
+starship.toml       → prompt
+.Xresources         → DPI & font rendering
+conky-i3bar.sh      → status bar
+rofi.config         → app launcher
+```
+
+Neovim lives in its own repo: [hecker-vim](https://github.com/mariusmagureanu/hecker-vim)
