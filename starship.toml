@@ -9,10 +9,11 @@ error_symbol = "[❯](bold red)"
 [directory]
 truncation_length = 4
 truncate_to_repo = false
+style = "bold 107"
 
 [git_branch]
 format = "on [$branch]($style) "
-style = "bold purple"
+style = "bold 103"
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
@@ -20,7 +21,7 @@ style = "bold red"
 
 [kubernetes]
 disabled = false
-format = '[⎈ \[$context\]]($style) '
+format = '[\[$context\]]($style) '
 style = "bold 208"
 
 [[kubernetes.contexts]]
