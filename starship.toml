@@ -1,4 +1,4 @@
-format = """$kubernetes$directory$git_branch$git_status$aws$terraform$cmd_duration$character"""
+format = """$kubernetes$directory$git_branch$git_status$aws$terraform$c$golang$python$rust$cmd_duration$character"""
 
 add_newline = false
 
@@ -44,13 +44,22 @@ disabled = false
 format = '[💠 $workspace]($style) '
 style = "bold 105"
 
+[rust]
+symbol = "🦀 "
+
+[c]
+symbol = "C "
+
+[golang]
+symbol = "🐹 "
+
 [cmd_duration]
 min_time = 3000
 format = "took [$duration]($style) "
 style = "bold yellow"
 
 [python]
-disabled = true
+symbol = "🐍 "
 
 [nodejs]
 disabled = true
